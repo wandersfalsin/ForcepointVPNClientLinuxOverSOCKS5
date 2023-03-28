@@ -7,7 +7,7 @@ LABEL description="Disponibilizando serviço SOCKS5 para acesso ao cliente VPN F
 ENV LOGIN=${LOGIN}
 ENV PASSW=${PASSW}
 ENV SERVER=${SERVER}
-ENV CLIENTEFILESITE="https://download.escope.net/Forcepoint/vpn%20client/6.10.0/ForcepointVPNClientLinux.zip"
+ENV CLIENT_FILE_SITE="https://download.escope.net/Forcepoint/vpn%20client/6.10.0/ForcepointVPNClientLinux.zip"
 ENV DEBFILE="forcepoint-client_2.5.0+buster_amd64.deb"
 
 #Atualiza SO e instala pacotes
@@ -17,7 +17,7 @@ RUN apt-get install curl unzip openssh-client openssh-server tzdata -yq
 RUN ln -fs /usr/share/zoneinfo/America/Araguaina /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 
 #Baixa cliente ForcePoint-Linux e descompacta
-RUN curl -SL ${CLIENTEFILESITE} -o ForcepointVPNClientLinux.zip
+RUN curl -SL ${CLIENT_FILE_SITE} -o ForcepointVPNClientLinux.zip
 RUN unzip ForcepointVPNClientLinux.zip -d ./ForcepointVPNClientLinux
 
 #Baixa todas as dependencias, instala tudo e limpa os arquivos de instalação
