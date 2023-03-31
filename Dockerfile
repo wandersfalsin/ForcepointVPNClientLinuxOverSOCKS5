@@ -48,7 +48,7 @@ RUN apt-get install --download-only resolvconf
 EXPOSE 1337
 
 HEALTHCHECK --interval=60s --timeout=3s \
-CMD curl -f $(echo $LOGIN | awk -F"@" '{print $2}') 2>/dev/null 1>&2 || exit 1
+CMD curl --fail $(echo $LOGIN | awk -F"@" '{print $2}') 2>/dev/null 1>&2 || kill -9 1
 
 CMD	umount -l /etc/resolv.conf && \
 	apt-get install resolvconf -y && \
