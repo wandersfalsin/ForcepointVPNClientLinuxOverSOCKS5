@@ -11,9 +11,7 @@ ENV CLIENT_FILE_SITE="https://download.escope.net/Forcepoint/vpn%20client/6.10.0
 ENV DEBFILE="forcepoint-client_2.5.0+buster_amd64.deb"
 
 #Atualiza SO e instala pacotes
-RUN apt-get update
-RUN apt-get dist-upgrade -y
-RUN apt-get install curl unzip openssh-client openssh-server tzdata -yq
+RUN apt-get update && apt-get dist-upgrade -y && apt-get install curl unzip openssh-client openssh-server tzdata -yq && apt-get clean -y
 RUN ln -fs /usr/share/zoneinfo/America/Araguaina /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 
 #Baixa cliente ForcePoint-Linux e descompacta
@@ -34,8 +32,7 @@ RUN dpkg -i ./ForcepointVPNClientLinux/${DEBFILE}
 RUN rm -fr ./ForcepointVPNClientLinux*
 
 #Atualiza alguns pacotes instataldos pelo comando anterior e limpa cache
-RUN apt-get dist-upgrade -y
-RUN apt-get autoremove -y && apt-get autoclean -y && apt-get clean -y
+RUN apt-get dist-upgrade -y && apt-get autoremove -y && apt-get autoclean -y && apt-get clean -y
 
 #Prepara serviço SSH
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
