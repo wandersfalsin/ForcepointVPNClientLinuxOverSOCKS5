@@ -8,7 +8,7 @@ ENV LOGIN=${LOGIN}
 ENV PASSW=${PASSW}
 ENV SERVER=${SERVER}
 ENV CLIENT_FILE_SITE="https://taslak.sdu.edu.tr/bidb/forcepoint-vpn/Linux_ForcepointVPNClientLinux252.zip"
-ENV DEBFILE="forcepoint-client_2.5.2+buster_amd64.deb"
+ENV DEBFILE="forcepoint-client_2.5.2+jammy_amd64.deb"
 
 #Atualiza SO e instala pacotes
 RUN apt-get update && apt-get dist-upgrade -y && apt-get install curl unzip openssh-client openssh-server tzdata -yq && apt-get clean -y
@@ -27,9 +27,7 @@ RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libe/libevent/libevent-c
 RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/e/expat/libexpat1_2.2.5-3ubuntu0.9_amd64.deb -o ./ForcepointVPNClientLinux/libexpat1_2.2.5-3ubuntu0.9_amd64.deb
 RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libn/libnl3/libnl-3-200_3.2.29-0ubuntu3_amd64.deb -o ./ForcepointVPNClientLinux/libnl-3-200_3.2.29-0ubuntu3_amd64.deb
 RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libn/libnl3/libnl-route-3-200_3.2.29-0ubuntu3_amd64.deb -o ./ForcepointVPNClientLinux/libnl-route-3-200_3.2.29-0ubuntu3_amd64.deb
-RUN dpkg -i ./ForcepointVPNClientLinux/l*.deb
-RUN dpkg -i ./ForcepointVPNClientLinux/${DEBFILE}
-RUN rm -fr ./ForcepointVPNClientLinux*
+RUN dpkg -i ./ForcepointVPNClientLinux/l*.deb && dpkg -i ./ForcepointVPNClientLinux/${DEBFILE}
 
 #Atualiza alguns pacotes instataldos pelo comando anterior e limpa cache
 RUN apt-get dist-upgrade -y && apt-get autoremove -y && apt-get autoclean -y && apt-get clean -y
