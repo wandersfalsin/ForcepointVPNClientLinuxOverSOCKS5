@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
-LABEL version="1.0.43" 
+LABEL version="1.0.44" 
 LABEL maintainer="Wander Sfalsin<wandersfalsin@gmail.com>"
 LABEL description="Disponibilizando serviço SOCKS5 para acesso ao cliente VPN ForcePoint. docker run sugerido: docker run -dit --restart always --privileged --cap-add=NET_ADMIN -e SERVER=vpnssl.company.com -e LOGIN=user@company.com -e PASSW=pass --device=/dev/net/tun -p 1337:1337 --name force forcepoint-client:2.5.0"
 
@@ -19,16 +19,15 @@ RUN curl -SL ${CLIENT_FILE_SITE} -o ForcepointVPNClientLinux.zip
 RUN unzip ForcepointVPNClientLinux.zip -d ./ForcepointVPNClientLinux
 
 #Baixa todas as dependencias, instala tudo e limpa os arquivos de instalação
-RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libe/libevent/libevent-2.1-6_2.1.8-stable-4build1_amd64.deb -o ./ForcepointVPNClientLinux/libevent-2.1-6_2.1.8-stable-4build1_amd64.deb
-RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libe/libevent/libevent-openssl-2.1-6_2.1.8-stable-4build1_amd64.deb -o ./ForcepointVPNClientLinux/libevent-openssl-2.1-6_2.1.8-stable-4build1_amd64.deb
-RUN curl -SL http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1-1ubuntu2.1~18.04.23_amd64.deb -o ./ForcepointVPNClientLinux/libssl1.1_1.1.1-1ubuntu2.1~18.04.23_amd64.deb
-RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libe/libevent/libevent-pthreads-2.1-6_2.1.8-stable-4build1_amd64.deb -o ./ForcepointVPNClientLinux/libevent-pthreads-2.1-6_2.1.8-stable-4build1_amd64.deb
-RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libe/libevent/libevent-core-2.1-6_2.1.8-stable-4build1_amd64.deb -o ./ForcepointVPNClientLinux/libevent-core-2.1-6_2.1.8-stable-4build1_amd64.deb
 RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/e/expat/libexpat1_2.2.5-3ubuntu0.9_amd64.deb -o ./ForcepointVPNClientLinux/libexpat1_2.2.5-3ubuntu0.9_amd64.deb
+RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libe/libevent/libevent-2.1-7_2.1.12-stable-1build3_amd64.deb -o ./ForcepointVPNClientLinux/libevent-2.1-7_2.1.12-stable-1build3_amd64.deb
+RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libe/libevent/libevent-core-2.1-7_2.1.12-stable-1build3_amd64.deb -o ./ForcepointVPNClientLinux/libevent-core-2.1-7_2.1.12-stable-1build3_amd64.deb
+RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libe/libevent/libevent-openssl-2.1-7_2.1.12-stable-1build3_amd64.deb -o ./ForcepointVPNClientLinux/libevent-openssl-2.1-7_2.1.12-stable-1build3_amd64.deb
+RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libe/libevent/libevent-pthreads-2.1-7_2.1.12-stable-1build3_amd64.deb -o ./ForcepointVPNClientLinux/libevent-pthreads-2.1-7_2.1.12-stable-1build3_amd64.deb
 RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libn/libnl3/libnl-3-200_3.2.29-0ubuntu3_amd64.deb -o ./ForcepointVPNClientLinux/libnl-3-200_3.2.29-0ubuntu3_amd64.deb
 RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libn/libnl3/libnl-route-3-200_3.2.29-0ubuntu3_amd64.deb -o ./ForcepointVPNClientLinux/libnl-route-3-200_3.2.29-0ubuntu3_amd64.deb
-RUN dpkg -i ./ForcepointVPNClientLinux/l*.deb 
-RUN dpkg -i ./ForcepointVPNClientLinux/${DEBFILE}
+RUN curl -SL http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1-1ubuntu2.1~18.04.23_amd64.deb -o ./ForcepointVPNClientLinux/libssl1.1_1.1.1-1ubuntu2.1~18.04.23_amd64.deb
+RUN dpkg -i ./ForcepointVPNClientLinux/l*.deb && dpkg -i ./ForcepointVPNClientLinux/${DEBFILE}
 
 #Atualiza alguns pacotes instataldos pelo comando anterior e limpa cache
 RUN apt-get dist-upgrade -y && apt-get autoremove -y && apt-get autoclean -y && apt-get clean -y
