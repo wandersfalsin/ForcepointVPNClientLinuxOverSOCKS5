@@ -7,7 +7,7 @@ LABEL description="Disponibilizando serviço SOCKS5 para acesso ao cliente VPN F
 ENV LOGIN=${LOGIN}
 ENV PASSW=${PASSW}
 ENV SERVER=${SERVER}
-ENV CLIENT_FILE_SITE="https://download.escope.net/Forcepoint/vpn%20client/6.10.0/ForcepointVPNClientLinux.zip"
+ENV CLIENT_FILE_SITE="https://taslak.sdu.edu.tr/bidb/forcepoint-vpn/Linux_ForcepointVPNClientLinux252.zip"
 ENV DEBFILE="forcepoint-client_2.5.0+buster_amd64.deb"
 
 #Atualiza SO e instala pacotes
