@@ -27,7 +27,8 @@ RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libe/libevent/libevent-c
 RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/e/expat/libexpat1_2.2.5-3ubuntu0.9_amd64.deb -o ./ForcepointVPNClientLinux/libexpat1_2.2.5-3ubuntu0.9_amd64.deb
 RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libn/libnl3/libnl-3-200_3.2.29-0ubuntu3_amd64.deb -o ./ForcepointVPNClientLinux/libnl-3-200_3.2.29-0ubuntu3_amd64.deb
 RUN curl -SL http://mirrors.kernel.org/ubuntu/pool/main/libn/libnl3/libnl-route-3-200_3.2.29-0ubuntu3_amd64.deb -o ./ForcepointVPNClientLinux/libnl-route-3-200_3.2.29-0ubuntu3_amd64.deb
-RUN dpkg -i ./ForcepointVPNClientLinux/l*.deb && dpkg -i ./ForcepointVPNClientLinux/${DEBFILE}
+RUN dpkg -i ./ForcepointVPNClientLinux/l*.deb 
+RUN dpkg -i ./ForcepointVPNClientLinux/${DEBFILE}
 
 #Atualiza alguns pacotes instataldos pelo comando anterior e limpa cache
 RUN apt-get dist-upgrade -y && apt-get autoremove -y && apt-get autoclean -y && apt-get clean -y
